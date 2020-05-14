@@ -19,7 +19,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'MainController@index')->name('home');
-Route::get('/barang', 'MainController@barang');
+Route::get('/barang', 'barangController@barangdag');
 Route::get('/calculator', 'MainController@calculator');
 Route::get('/kontak', 'MainController@kontak');
 Route::get('/statistik', 'MainController@statistik');

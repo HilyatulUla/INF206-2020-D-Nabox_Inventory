@@ -26,10 +26,11 @@ class MainController extends Controller
         return view('home');
     }
     
-    public function barang()
-    {
-        return view('barang');
-    }
+    /**     public function barang()
+    *{
+    *   return view('barang');
+    *}
+    */
     
     public function calculator()
     {
