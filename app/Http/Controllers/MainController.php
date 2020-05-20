@@ -35,4 +35,14 @@ class MainController extends Controller
     {
         return view('calculator');
     }
+
+    public function kontak()
+    {
+        return view('kontak');
+    }
+
+    public function statistik()
+    {
+        return view('statistik');
+    }
 }

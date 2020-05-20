@@ -34,7 +34,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    color: #fff;
+    color: rgb(130, 161, 245);
     cursor: pointer;
   }
   
@@ -94,7 +94,7 @@
   .btn{
     display: inline-block;
     width: 120px;
-    height: 120px;
+    height: 160px;
     background: #343a40;
     margin: 20px;
     border-radius: 30%;
