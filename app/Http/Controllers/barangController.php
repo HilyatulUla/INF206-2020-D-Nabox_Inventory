@@ -2,131 +2,79 @@
 
 namespace App\Http\Controllers;
 
-use App\Barang;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\DB;
+
 
 class barangController extends Controller
 {
+	public function index()
+	{
+    	// mengambil data dari table pegawai
+		$menus = DB::table('menus')->get();
 
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    	// mengirim data pegawai ke view index
+		return view('index',['menus' => $menus]);
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
+	}
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+	// method untuk menampilkan view form tambah pegawai
+	public function tambah()
+	{
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        $file = $request->file('gambar');
-        $nama_file = time()."_".$file->getClientOriginalName();
-        $folder_tujuan = 'img';
-        $file->move($folder_tujuan, $nama_file);
+		// memanggil view tambah
+		return view('tambah');
 
-        Barang::create([
-                'nama' => $request->nama,
-                'harga' => $request->harga,
-                'jenis' => $request->jenis,
-                'gambar' => $nama_file
-        ]);
+	}
 
-        return redirect('/'.$request->jenis)->with('status', 'Data '.$request->nama.' berhasil ditambahkan');
-    }
+	// method untuk insert data ke table pegawai
+	public function store(Request $request)
+	{
+		// insert data ke table pegawai
+		DB::table('menus')->insert([
+			'menus_nama' => $request->nama,
+			'menus_harga' => $request->harga,
+            'menus_jenis' => $request->jenis,
+            'menus_gambar' => $request->gambar,
+			'menus_jumlah' => $request->jumlah
+		]);
+		// alihkan halaman ke halaman pegawai
+		return redirect('/menus');
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\barang  $barang
-     * @return \Illuminate\Http\Response
-     */
-    public function show(barang $barang)
-    {
-        //
-    }
+	}
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\barang  $barang
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(barang $barang)
-    {
-        return view('edit-barang', compact('barang'));
-    }
+	// method untuk edit data pegawai
+	public function edit($id)
+	{
+		// mengambil data pegawai berdasarkan id yang dipilih
+		$menus = DB::table('menus')->where('menus_id',$id)->get();
+		// passing data pegawai yang didapat ke view edit.blade.php
+		return view('edit',['menus' => $menus]);
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\barang  $barang
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, barang $barang)
-    {
-         $nama_file = $barang->gambar;
-        if($request->hasFile('gambar')){
-            $nama_file = time()."_".$request->file('gambar')->getClientOriginalName();
-            $folder_tujuan = 'img';
-            $request->file('gambar')->move($folder_tujuan, $nama_file);
-            $image_path = "img/".$barang->gambar;
-            if(File::exists($image_path))
-                File::delete($image_path);
-            }
+	}
 
-            Barang::where('id', $barang->id)
-            ->update([
-                'nama' => $request->nama,
-                'harga' => $request->harga,
-                'jenis' => $request->jenis,
-                'gambar' => $nama_file
-            ]);
+	// update data pegawai
+	public function update(Request $request)
+	{
+		// update data pegawai
+		DB::table('menus')->where('menus_id',$request->id)->update([
+			'menus_nama' => $request->nama,
+			'menus_harga' => $request->harga,
+            'menus_jenis' => $request->jenis,
+            'menus_gambar' => $request->gambar,
+			'menus_jumlah' => $request->jumlah
+		]);
+		// alihkan halaman ke halaman pegawai
+		return redirect('/menus');
+	}
 
-             return redirect('/'.$request->jenis)-> with('status','Data '.$request->nama.' berhasil diedit');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\barang  $barang
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(barang $barang)
-    {
-        $image_path = "img/".$barang->gambar;
-        if(File::exists($image_path))
-            File::delete($image_path);
-
-        Barang::destroy($barang->id);
-        return redirect('/'.$barang->jenis) -> with('status','Data '.$barang->nama.' berhasil dihapus');
-    }
-
-    public function barangdag(){
-        $makanan  = Barang::orderBy('id', 'desc')->where('jenis', 'barangdag')->paginate(10);
-        return view('barang', compact('barangdag'));
-    }     
+	// method untuk hapus data pegawai
+	public function hapus($id)
+	{
+		// menghapus data pegawai berdasarkan id yang dipilih
+		DB::table('menus')->where('menus_id',$id)->delete();
+		
+		// alihkan halaman ke halaman pegawai
+		return redirect('/menus');
+	}
 }
