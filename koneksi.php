@@ -1,2 +1,2 @@
 <?php
-$koneksi = new mysqli("localhost", "root", "", "nabox-new");
+$koneksi = new mysqli("localhost", "root", "", "nabox");
