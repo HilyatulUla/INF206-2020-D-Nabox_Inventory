@@ -2,64 +2,42 @@ body {
 	background-color: #eee;
 }
 
-td {
-	width: 30vw;
+.welcome {
+	margin-top: 2%;
+	margin-left: 5%;
+
 }
 
-body {
-	background-color: #eee;
+.category-box {
+	border: solid 1px #b2b9bd;
+	box-shadow: #ccc 2px 2px;
+	background-color: rgb(241, 241, 241);
+	width: 50%;
+	height: 200px;
+	padding-top: 5%;
+	padding-bottom: 5%;
+	border-radius: 10px;
+}
+
+a {
 	color: #263238;
 }
 
-
-
-
-.form-title {
-	font-size: 30px;
-	font-family: 'Tomorrow', sans-serif;
+a:hover {
+	color: #3c4f58;
 }
 
-
-
-#form-capt {
-	font-size: 16px;
-	font-family: 'Helvetica';
+.ruler-lg {
+	background-color: rgba(204, 204, 204, 0.63);
+	height: 1px;
+	margin-top: 5%;
+	margin-bottom: 5%;
 }
 
-.form-control {
-	width: 300px;
-	height: 50px;
-	margin-top: 30px;
-	border-radius: 0px;
-	border-color: #26323881;
-	color: #34434b;
-	background-color: #eee;
-}
-
-.form-control:focus {
-	box-shadow: none;
-	background-color: rgba(238, 237, 237, 0.993);
-	color: #1a2225;
-}
-
-#opt {
-	color: black;
-}
-
-.btn {
-	margin-top: 20px;
-	background-color: #263238;
-	color: #eee;
-	height: 50px;
-	width: 120px;
-	border-radius: 1px;
-}
-
-.btn:hover {
-	background-color: #324249;
-	color: #eee;
-}
-
-.regist-direct {
-	color: #263238;
+.ruler-sm {
+	background-color: #ccc;
+	height: 1px;
+	width: 100%;
+	margin-top: 5%;
+	margin-bottom: 5%;
 }
